@@ -21,6 +21,8 @@ position: Consumer
 specificationVersion: '0.19'
 apis: []
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/us-economic-development-administration
   - type: Website
     url: https://www.eda.gov/
 maintainers:
