@@ -21,6 +21,8 @@ position: Consumer
 specificationVersion: '0.19'
 apis: []
 common:
+  - type: DomainSecurity
+    url: security/economic-development-administration-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/us-economic-development-administration
   - type: Website
