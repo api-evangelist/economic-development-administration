@@ -42,7 +42,7 @@ tags_raw:
 access: 3rd-Party
 created: '2024-07-11'
 modified: '2026-04-28'
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
 apis: []
 common:
