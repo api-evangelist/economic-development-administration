@@ -1,0 +1,80 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Anonymous HTTPS probes of /.well-known/* on every host this record knows —
+  the registrable domain eda.gov, www.eda.gov, and sfgrants.eda.gov (the EDA
+  Grants Management Portal, an EDA-controlled subdomain running on Salesforce
+  Experience Cloud).
+note: >-
+  eda.gov and www.eda.gov sit behind a Cloudflare managed challenge: every path,
+  including the site root and /robots.txt, answers 403 with a "Just a moment..."
+  interstitial to a non-browser client, so no /.well-known document on the main
+  web property could be read either way — an absence there is unproven, not
+  measured. sfgrants.eda.gov answered anonymously: /.well-known/openid-configuration
+  returned a real OpenID Provider metadata document (HTTP 200, application/json,
+  issuer https://sfgrants.eda.gov) and every other probed path returned 401.
+  The OIDC document is the Salesforce Experience Cloud tenant's standard provider
+  metadata served under EDA's own domain; it describes sign-in to EDA's grants
+  portal, not a published EDA developer API.
+hosts:
+  - host: eda.gov
+    note: Cloudflare managed challenge — all paths 403 to a non-browser client.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+  - host: www.eda.gov
+    note: Cloudflare managed challenge — all paths 403 to a non-browser client.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+  - host: sfgrants.eda.gov
+    note: >-
+      EDA Grants Management Portal (page title "EDA Grants Management Portal"),
+      a Salesforce Experience Cloud site on an EDA-controlled subdomain.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: well-known/economic-development-administration-openid-configuration.json
+        content_type: application/json;charset=UTF-8
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+      - path: /.well-known/oauth-protected-resource
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/ai-plugin.json
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401

@@ -1,0 +1,82 @@
+generated: '2026-09-06'
+method: probed
+source: https://sfgrants.eda.gov/.well-known/openid-configuration
+ownership_note: >-
+  sfgrants.eda.gov is EDA's own subdomain (DNS CNAMEs to Salesforce siteforce.com)
+  hosting the "EDA Grants Management Portal"; the OpenID Provider metadata is served
+  by that tenant under EDA's domain with issuer https://sfgrants.eda.gov, so it
+  describes EDA's grants portal sign-in and not a third-party product. It is the
+  Salesforce Experience Cloud platform's standard OIDC surface, not an EDA-authored
+  developer auth programme.
+summary: >-
+  EDA publishes no developer API and no public authentication documentation. The only
+  authentication surface reachable anonymously on an EDA-controlled host is the OpenID
+  Connect / OAuth 2.0 provider on sfgrants.eda.gov, which authenticates grantees into
+  the EDA Grants Management Portal. Every data endpoint behind it (/services/data/vXX.0,
+  /services/oauth2/register, /services/oauth2/introspect) returned 401 to an anonymous
+  client, so the portal API is customer-gated.
+schemes:
+  - id: eda-grants-portal-oidc
+    type: openIdConnect
+    name: OpenID Connect — EDA Grants Management Portal
+    openIdConnectUrl: https://sfgrants.eda.gov/.well-known/openid-configuration
+    issuer: https://sfgrants.eda.gov
+    endpoints:
+      authorization: https://sfgrants.eda.gov/services/oauth2/authorize
+      token: https://sfgrants.eda.gov/services/oauth2/token
+      userinfo: https://sfgrants.eda.gov/services/oauth2/userinfo
+      revocation: https://sfgrants.eda.gov/services/oauth2/revoke
+      introspection: https://sfgrants.eda.gov/services/oauth2/introspect
+      registration: https://sfgrants.eda.gov/services/oauth2/register
+      jwks: https://sfgrants.eda.gov/id/keys
+      end_session: https://sfgrants.eda.gov/services/auth/idp/oidc/logout
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+    response_types_supported:
+      - code
+      - token
+      - token id_token
+    token_endpoint_auth_methods_supported:
+      - client_secret_post
+      - client_secret_basic
+      - private_key_jwt
+    id_token_signing_alg_values_supported:
+      - RS256
+    dpop_signing_alg_values_supported:
+      - RS256
+      - RS384
+      - RS512
+      - ES256
+      - ES384
+      - ES512
+      - EdDSA
+    pkce: not-declared-in-metadata
+    scopes_ref: scopes/economic-development-administration-scopes.yml
+    evidence:
+      - url: https://sfgrants.eda.gov/.well-known/openid-configuration
+        status: 200
+        fetched: '2026-09-06'
+      - url: https://sfgrants.eda.gov/id/keys
+        status: 200
+        fetched: '2026-09-06'
+dynamic_client_registration:
+  declared: true
+  endpoint: https://sfgrants.eda.gov/services/oauth2/register
+  anonymous_registration: false
+  evidence:
+    - url: https://sfgrants.eda.gov/services/oauth2/register
+      status: 401
+      method: POST
+      fetched: '2026-09-06'
+      note: >-
+        Registration endpoint is advertised in the discovery document but rejects an
+        unauthenticated RFC 7591 registration request, so client onboarding is manual
+        and administered by EDA.
+gaps:
+  - No public API reference, no published auth guide, no key-issuance path for
+    developers outside the grantee population.
+  - The main web property (www.eda.gov) could not be read at all — Cloudflare managed
+    challenge returns 403 to non-browser clients — so any auth documentation published
+    there is unverified rather than absent.

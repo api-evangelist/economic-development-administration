@@ -1,0 +1,78 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Anonymous probes of sfgrants.eda.gov (EDA Grants Management Portal) plus
+  attempted probes of eda.gov, www.eda.gov and catalog.data.gov on 2026-09-06.
+note: >-
+  EDA publishes no OpenAPI, no developer portal and no compliance page that a machine
+  could read: eda.gov and www.eda.gov answer 403 behind a Cloudflare managed challenge
+  to every non-browser client, so claims made on those pages are UNVERIFIED rather than
+  absent. Only entries with a fetched evidence URL are marked conforms: true.
+conformance:
+  - id: oauth2
+    conforms: true
+    evidence: https://sfgrants.eda.gov/.well-known/openid-configuration
+    detail: >-
+      OAuth 2.0 authorization, token, revocation and introspection endpoints are
+      declared in the provider metadata served from EDA's grants-portal host
+      (HTTP 200, 2026-09-06).
+  - id: oidc
+    conforms: true
+    evidence: https://sfgrants.eda.gov/.well-known/openid-configuration
+    detail: >-
+      RFC 8414 / OpenID Connect Discovery 1.0 document with issuer
+      https://sfgrants.eda.gov, RS256 id_token signing, a JWKS at
+      https://sfgrants.eda.gov/id/keys (HTTP 200), userinfo and end_session
+      endpoints, and 36 declared scopes.
+  - id: rfc7591-dynamic-client-registration
+    conforms: false
+    evidence: https://sfgrants.eda.gov/services/oauth2/register
+    detail: >-
+      registration_endpoint is advertised in the discovery document but an anonymous
+      RFC 7591 POST returns 401 — client registration is administered, not open.
+  - id: oauth2-dpop
+    conforms: true
+    evidence: https://sfgrants.eda.gov/.well-known/openid-configuration
+    detail: >-
+      dpop_signing_alg_values_supported declares RS256/RS384/RS512/ES256/ES384/ES512/EdDSA,
+      so the issuer advertises RFC 9449 sender-constrained tokens.
+  - id: rfc9457
+    conforms: unknown
+    evidence: null
+    detail: No public error contract or OpenAPI to inspect; every data endpoint returns 401.
+  - id: dcat-us
+    conforms: unknown
+    evidence: https://www.eda.gov/data.json
+    detail: >-
+      Project Open Data requires a /data.json DCAT-US catalog at the agency root.
+      https://www.eda.gov/data.json returned 403 behind the Cloudflare challenge, so
+      whether EDA serves one could not be established. EDA datasets are listed under the
+      "Economic Development Administration" publisher on catalog.data.gov, but that
+      catalogue is Data.gov's surface, not EDA's.
+  - id: ckan
+    conforms: false
+    evidence: https://catalog.data.gov/dataset?publisher=Economic+Development+Administration
+    detail: >-
+      EDA operates no CKAN instance of its own; the Data.gov catalogue page for the EDA
+      publisher now renders as a JavaScript SPA shell (HTTP 200, identical 214,376-byte
+      body for every query) and its /api/3/action/* CKAN endpoints return 404.
+  - id: fedramp
+    conforms: unknown
+    evidence: null
+    detail: >-
+      The grants portal runs on Salesforce, a FedRAMP-authorized platform, but EDA
+      publishes no authorization boundary statement of its own that could be read, so
+      no FedRAMP claim is recorded on EDA's behalf.
+  - id: eidas
+    conforms: false
+    evidence: null
+    detail: Not applicable — EDA is a United States federal agency.
+domain_standard:
+  declared: false
+  detail: >-
+    The regulatory shortlist for the Government & Public Sector regime is dcat, ckan,
+    eidas, fedramp and open-data-charter. None of these is DECLARED by a contract EDA
+    serves: there is no contract. EDA's own data products on eda.gov/impact/data and
+    eda.gov/performance/tools are PDF and XLSX documents, and the analytical tools it
+    points at (StatsAmerica, the Regional Innovation Index, USA Counties in Profile) are
+    operated by the Indiana Business Research Center, not by EDA.

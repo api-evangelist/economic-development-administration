@@ -1,0 +1,27 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.eda.gov/sitemap.xml
+note: >-
+  EDA publishes no API documentation, so it publishes no rate limits. The only endpoint
+  on an EDA-controlled host that answers anonymously is the OpenID Connect discovery
+  document on the grants portal, and it returned no RateLimit-*, X-RateLimit-* or
+  Retry-After header. Every data endpoint behind it returns 401 before any limit could
+  be observed, so no runtime signal is measurable without grantee credentials. EDA's own
+  sitemap (2,805 URLs) contains no /developers, /api or /docs path where limits might be
+  documented.
+limit_count: 0
+limits: []
+headers: []
+status_code_on_exhaustion: null
+evidence:
+  - url: https://sfgrants.eda.gov/.well-known/openid-configuration
+    status: 200
+    note: 200 application/json; response carried no rate-limit headers.
+  - url: https://sfgrants.eda.gov/services/data/v62.0/limits
+    status: 401
+    note: >-
+      The Salesforce platform limits resource exists on the tenant but is
+      authentication-gated, so published limits cannot be read anonymously.
+  - url: https://www.eda.gov/
+    status: 403
+    note: Cloudflare managed challenge — the web property cannot be crawled at all.

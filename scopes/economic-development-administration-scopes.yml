@@ -1,0 +1,87 @@
+generated: '2026-09-06'
+method: probed
+source: https://sfgrants.eda.gov/.well-known/openid-configuration
+note: 'scopes_supported read verbatim from the OpenID Provider metadata served at https://sfgrants.eda.gov/.well-known/openid-configuration
+  (HTTP 200, 2026-09-06). This is the Salesforce Experience Cloud platform scope vocabulary exposed by
+  EDA''s grants-portal tenant under EDA''s own domain — it is NOT an EDA-authored scope taxonomy, and
+  EDA publishes no scopes/permissions reference page. Descriptions below are the platform meanings of
+  each scope, not EDA prose. Which of these scopes EDA actually grants to a portal client cannot be determined
+  anonymously: every data endpoint behind the issuer returned 401.'
+issuer: https://sfgrants.eda.gov
+flows:
+  authorization_code: https://sfgrants.eda.gov/services/oauth2/authorize
+docs: null
+scope_count: 36
+scopes:
+- scope: address
+  description: Standard OIDC address claim.
+- scope: api
+  description: Access the Salesforce REST/SOAP data APIs for the EDA grants org.
+- scope: cdp_api
+  description: Access Data Cloud (CDP) APIs.
+- scope: cdp_calculated_insight_api
+  description: Read Data Cloud calculated insights.
+- scope: cdp_identityresolution_api
+  description: Run Data Cloud identity resolution.
+- scope: cdp_ingest_api
+  description: Ingest records into Data Cloud.
+- scope: cdp_profile_api
+  description: Read unified Data Cloud profiles.
+- scope: cdp_query_api
+  description: Query Data Cloud objects.
+- scope: cdp_segment_api
+  description: Manage Data Cloud segments.
+- scope: chatbot_api
+  description: Access Einstein Bots APIs.
+- scope: chatter_api
+  description: Access the Connect (Chatter) REST API.
+- scope: content
+  description: Access Salesforce CMS / managed content APIs.
+- scope: custom_permissions
+  description: Return the custom permissions granted to the user.
+- scope: data_cloud_user_claims
+  description: Return Data Cloud user claims in the token.
+- scope: eclair_api
+  description: Access CRM Analytics chart/Eclair APIs.
+- scope: einstein_gpt_api
+  description: Access Einstein Generative AI APIs.
+- scope: email
+  description: Standard OIDC email and email_verified claims.
+- scope: forgot_password
+  description: Forgot-password API for Experience Cloud users.
+- scope: full
+  description: Full access to all data the authenticated portal user can reach.
+- scope: id
+  description: Salesforce identity URL access (user id, organization id, urls).
+- scope: interaction_api
+  description: Access the Interaction (Salesforce Interactions) API.
+- scope: lightning
+  description: Access Lightning Experience / Lightning component endpoints.
+- scope: mcp_api
+  description: Access the Salesforce platform Model Context Protocol API surface.
+- scope: offline_access
+  description: Synonym of refresh_token — offline access to the portal API.
+- scope: openid
+  description: Issue an OpenID Connect ID token for the authenticated portal user.
+- scope: pardot_api
+  description: Access Account Engagement (Pardot) APIs.
+- scope: phone
+  description: Standard OIDC phone_number and phone_number_verified claims.
+- scope: profile
+  description: Standard OIDC profile claims (name, preferred_username, picture, zoneinfo).
+- scope: pwdless_login_api
+  description: Passwordless login API for Experience Cloud users.
+- scope: refresh_token
+  description: Issue a refresh token for long-lived access.
+- scope: scrt_api
+  description: Access Service Cloud Real-Time (Messaging) APIs.
+- scope: sfap_api
+  description: Access Salesforce Agentforce Platform APIs.
+- scope: user_registration_api
+  description: Self-registration API for Experience Cloud users.
+- scope: visualforce
+  description: Access Visualforce pages in the org.
+- scope: wave_api
+  description: Access CRM Analytics (Wave) APIs.
+- scope: web
+  description: Access the portal web session (Experience Cloud).

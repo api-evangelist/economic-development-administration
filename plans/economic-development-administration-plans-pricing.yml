@@ -1,0 +1,25 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.eda.gov/funding
+note: >-
+  The U.S. Economic Development Administration is a federal grant-making bureau of the
+  Department of Commerce. It sells nothing, meters nothing and publishes no pricing or
+  plans page: money flows outward as competitive grants under PWEDA, not inward as API
+  subscriptions. Its only authenticated system, the EDA Grants Management Portal at
+  https://sfgrants.eda.gov/s/, is free to grantees and has no commercial tier. The
+  funding pages (https://www.eda.gov/funding, /funding/funding-opportunities) describe
+  grant programmes, not product plans.
+plan_count: 0
+plans: []
+free_tier: not-applicable
+enterprise_only: false
+evidence:
+  - url: https://www.eda.gov/funding
+    status: 403
+    note: >-
+      Cloudflare managed challenge blocks non-browser clients; the URL is confirmed live
+      from EDA's own Drupal sitemap (https://www.eda.gov/sitemap.xml, 2,805 URLs), which
+      contains no /pricing, /plans or /developers path.
+  - url: https://sfgrants.eda.gov/s/
+    status: 200
+    note: EDA Grants Management Portal — grantee login, no priced tiers.
